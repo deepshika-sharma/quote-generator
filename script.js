@@ -1,10 +1,20 @@
-let tooltip = document.querySelector(".tooltip");
-let tweetBtn = document.querySelector("button.tweet");
 let newQuote = document.querySelector(".new-quote");
+let quote = document.querySelector(".quote");
+let quoteAuthor = document.querySelector(".author");
 
-console.log(tweetBtn);
+// console.log(tweetBtn);
 
-newQuote.addEventListener(onclick, (e) => {
-  e.preventDefault();
-  console.log("clicked!!");
+// Quote generator
+newQuote.addEventListener("click", () => {
+  let quoteIndex = Math.floor(Math.random() * 1643 + 1);
+  fetch("https://type.fit/api/quotes")
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      let { text, author } = data[quoteIndex];
+      quote.innerText = text;
+      quoteAuthor.innerText = author;
+      //   console.log(data[quoteIndex]);
+    });
 });
