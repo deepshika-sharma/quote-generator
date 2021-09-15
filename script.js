@@ -9,8 +9,19 @@ let card = document.querySelector(".card");
 
 let quotes = [];
 
+const showLoader = () => {
+  loader.hidden = false;
+  card.style.display = "none";
+};
+
+const hideLoader = () => {
+  loader.hidden = true;
+  card.style.display = "block";
+};
+
 // Quote generator
 const getQuote = async () => {
+  showLoader();
   const apiUrl = "https://type.fit/api/quotes";
   try {
     const response = await fetch(apiUrl);
@@ -19,18 +30,10 @@ const getQuote = async () => {
     // quote.innerText = quotes[0].text;
     // quoteAuthor.innerText = quotes[0].author;
   } catch (error) {}
-
-  // Loader
-  if (quotes.length) {
-    loader.style.display = "none";
-    card.style.display = "block";
-  } else {
-    loader.style.display = "block";
-    card.style.display = "none";
-  }
 };
 
 const setQuote = (quotes) => {
+  showLoader();
   // Random quotes from the array of quotes
   // console.log(quotes.length);
   let quoteIndex = Math.floor(Math.random() * quotes.length + 1);
@@ -43,7 +46,7 @@ const setQuote = (quotes) => {
   } else {
     quoteAuthor.textContent = author;
   }
-
+  hideLoader();
   //   console.log(data[quoteIndex]);
 };
 
